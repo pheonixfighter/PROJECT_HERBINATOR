@@ -24,12 +24,20 @@ const int   daylightOffset_sec = 3600; // 3600 secs added for daylight savings
 // Web server port open 80 http
 WebServer server(80);
 
+// Global variables required for updating the information that will be sent over the metwork
+int temperature;
+int moisture;
+int humidity;
+String state;
+
+
 // method definitions
 String getString(String);
 void connect(String, String);
 String getTimeString();
 void handleJson();
 void handleTime();
+void updateDeviceInfo(int, int, int, String);
 
 void setup(){ // in the futire, this code may be moved to its own function so that we can do more with it on startup
   Serial.begin(9600); // so that terminal can be read
@@ -118,14 +126,21 @@ String getTimeString() {
   return String(buf);
 }
 
-// Json packet
+/**
+ * Creates and sends JSON to client
+ */
 void handleJson() {
   JsonDocument doc;
-  doc["Temperature"] = 72;
-  doc["Moisture"] = 32;
-  doc["Humidity"] = 45;
-  doc["State"] = "On";
+  doc["Temperature"] = temperature;
+  doc["Moisture"] = moisture;
+  doc["Humidity"] = humidity;
+  doc["State"] = state;
   doc["Time"] = getTimeString();
   server.send(200, "application/json", serializeJson(doc, Serial));
   // maybe add a delay here
+}
+
+
+void updateDeviceInfo(int theTemperature, int theMoisture, int theHumidity, String theState) {
+
 }

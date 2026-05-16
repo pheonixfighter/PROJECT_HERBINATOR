@@ -5,8 +5,12 @@
 # Querying the esp for sensor state data periodically, and also manual functions
 # Send updates to override existing behavior 
 import requests
+
+import enum
 # herby should host an http server that has JSON data dynamically updated to be sent over the network to the client
 BASE_URL = "http://herbnet.local/"  # DNS address
+
+
 
 
 def send_command(endpoint, method="GET", data=None):
