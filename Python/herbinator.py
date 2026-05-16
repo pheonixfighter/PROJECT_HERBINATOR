@@ -10,9 +10,13 @@ import time
 import threading
 import tkinter as tk
 from tkinter import ttk, messagebox
+import enum
+
 # herby should host an http server that has JSON data dynamically updated to be sent over the network to the client
 BASE_URL = "http://herbnet.local"  # DNS address
 POLL_INTERVAL = 10
+
+
 
 
 def send_command(endpoint, method="GET", data=None):

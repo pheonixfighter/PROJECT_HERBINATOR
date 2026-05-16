@@ -1,3 +1,4 @@
 {
-    "idf.currentSetup": "C:\\esp\\v6.0\\esp-idf"
+    "idf.currentSetup": "C:\\esp\\v6.0\\esp-idf",
+    "python-envs.defaultEnvManager": "ms-python.python:system",
 }
