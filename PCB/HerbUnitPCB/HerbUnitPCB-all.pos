@@ -1,0 +1,51 @@
+### Footprint positions - created on 2026-05-24T22:09:08 ###
+### Printed by KiCad version 10.0.1
+## Unit = mm, Angle = deg.
+## Side : All
+# Ref     Val                          Package                                                             PosX       PosY       Rot  Side
+C1        22u                          C_0805_2012Metric                                               161.4396   -36.8300   90.0000  bottom
+C2        0.1u                         C_0402_1005Metric                                               158.5468   -36.7284   90.0000  bottom
+J4        SD_Card_Device               SD_Hirose_DM1AA_SF_PEJ82                                        181.5500   -69.0000  -90.0000  bottom
+R9        100k                         R_0805_2012Metric                                               153.1535   -54.9675  -90.0000  bottom
+R14       47k                          R_0805_2012Metric                                               153.0000   -45.0000  -90.0000  bottom
+C3        4.7u                         C_0805_2012Metric                                               161.1980   -81.3450  180.0000  top
+C4        4.7u                         C_0805_2012Metric                                               161.1320   -79.0590  180.0000  top
+C5        10u                          C_0805_2012Metric                                               151.2545   -78.9940    0.0000  top
+C6        4.7u                         C_0805_2012Metric                                               160.4792   -74.6994   90.0000  top
+C7        4.7u                         C_0805_2012Metric                                               157.4292   -77.3684    0.0000  top
+C8        0.1u                         C_0402_1005Metric                                               178.8160   -81.0260  180.0000  top
+C9        0.1u                         C_0402_1005Metric                                               187.1700   -81.0260  180.0000  top
+D1        PESD5V0L1ULD                 D_SOD-882D                                                      161.2660   -84.3700  180.0000  top
+D2        LED                          LED_1210_3225Metric_Pad1.42x2.65mm_HandSolder                   190.0285   -86.3600  180.0000  top
+D3        LED                          LED_1210_3225Metric_Pad1.42x2.65mm_HandSolder                   190.0285   -90.1700  180.0000  top
+D4        LED                          LED_1210_3225Metric_Pad1.42x2.65mm_HandSolder                   190.0285   -93.9800  180.0000  top
+D5        Green_LED                    LED_0402_1005Metric                                             141.0000   -75.5000   90.0000  top
+D6        Green_LED                    LED_0402_1005Metric                                             160.0200   -89.5445   90.0000  top
+J1        USB_C_Receptacle_USB2.0_16P  USB_C_Receptacle_G-Switch_GT-USB-7010ASV                        167.1320   -90.8470    0.0000  top
+J2        Barrel_Jack_Switch_Pin3Ring  BarrelJack_Horizontal                                           146.6165   -81.1220   90.0000  top
+J3        Conn_01x03_Pin               PinHeader_1x03_P2.54mm_Horizontal                               150.1725   -54.9675  180.0000  top
+J5        Screw_Terminal_01x02         TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal   145.5850   -38.6030  -90.0000  top
+J6        Conn_01x03_Pin               PinHeader_1x03_P2.54mm_Horizontal                               150.4265   -65.5320  180.0000  top
+R1        0                            R_0805_2012Metric                                               164.1800   -80.0750   90.0000  top
+R2        5.1k                         R_0402_1005Metric                                               168.4980   -83.1230  -90.0000  top
+R3        5.1k                         R_0402_1005Metric                                               164.6880   -83.1230   90.0000  top
+R4        10k                          R_0402_1005Metric                                               180.3400   -76.9600  -90.0000  top
+R5        5.1k                         R_0402_1005Metric                                               180.3400   -78.9920  -90.0000  top
+R6        10k                          R_0402_1005Metric                                               188.7240   -76.7660  -90.0000  top
+R7        5.1k                         R_0402_1005Metric                                               188.7240   -78.7760  -90.0000  top
+R8        10k                          R_0402_1005Metric                                               162.0560   -55.6260    0.0000  top
+R10       2k                           R_0402_1005Metric                                               185.6720   -86.3600    0.0000  top
+R11       10k                          R_0402_1005Metric                                               191.7700   -45.2140  -90.0000  top
+R12       2k                           R_0402_1005Metric                                               184.0464   -90.1700    0.0000  top
+R13       2k                           R_0402_1005Metric                                               182.4085   -93.9800    0.0000  top
+R15       2k                           R_0402_1005Metric                                               141.0000   -71.0000  -90.0000  top
+R16       2k                           R_0402_1005Metric                                               157.9602   -86.6648    0.0000  top
+SW1       SW_Push                      SW_SPST_B3U-1000P                                               178.0540   -77.9780  -90.0000  top
+SW2       SW_Push                      SW_SPST_B3U-1000P                                               186.4360   -77.9780  -90.0000  top
+SW3       SW_Push                      SW_Push_1P1T_NO_CK_PTS125Sx43SMTR                               167.4240   -66.0000    0.0000  top
+U1        USBLC6-2P6                   SOT-666                                                         166.7200   -80.0750   90.0000  top
+U2        ESP32-S3-WROOM-1             ESP32-S3-WROOM-1                                                167.2380   -41.3520    0.0000  top
+U3        AMS1117-5.0                  SOT-223-3_TabPin2                                               145.8025   -73.5080   90.0000  top
+U5        DHT11                        Aosong_DHT11_5.5x12.0_P2.54mm                                   186.2860   -46.5800  180.0000  top
+U6        AP2112K-3.3                  SOT-23-5                                                        157.2967   -74.5084  180.0000  top
+## End
