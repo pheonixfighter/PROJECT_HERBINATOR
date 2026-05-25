@@ -2364,6 +2364,30 @@
 			)
 		)
 	)
+	(global_label "RedLED"
+		(shape input)
+		(at 29.21 59.69 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "32481c4d-6096-4cfc-b639-ce447840f699")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 19.2701 59.69 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
 	(global_label "MoistureRead"
 		(shape input)
 		(at 146.05 38.1 180)
@@ -2412,7 +2436,7 @@
 			)
 		)
 	)
-	(global_label "RedLED"
+	(global_label "GreenLED"
 		(shape input)
 		(at 29.21 33.02 180)
 		(fields_autoplaced yes)
@@ -2422,33 +2446,9 @@
 			)
 			(justify right)
 		)
-		(uuid "3c336306-e12d-47e6-aa0d-9330a0d495f7")
+		(uuid "5442947e-0e1a-42f1-84bf-7de32baafd8e")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 19.2701 33.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-	)
-	(global_label "GreenLED"
-		(shape input)
-		(at 29.21 59.69 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "55d4231f-c32a-43e6-945b-3728ddc96efe")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 17.3953 59.69 0)
+			(at 17.3953 33.02 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3114,7 +3114,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TerminalBlock_Philmore:TerminalBlock_Philmore_TB132_1x02_P5.00mm_Horizontal"
+		(property "Footprint" "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal"
 			(at 69.85 96.52 0)
 			(hide yes)
 			(show_name no)
