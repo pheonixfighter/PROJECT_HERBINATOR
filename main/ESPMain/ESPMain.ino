@@ -3,8 +3,8 @@
  * Brain for ESP Herbinator units. Uses a FSM to read sensor data
  * and decide when to water the plant.
  *
- * @author Landon Wardle
- * @date 5/8/2026
+ * @author Landon Wardle, Hunter Maas
+ * @date 5/26/2026
  * @version 1.0
  */
 
@@ -15,7 +15,14 @@
 #include <EEPROM.h>
 #include <SPI.h>
 #include <SD.h>
+#include <WiFi.h> // wifi module for esp32
+#include <string.h> // string management
+#include <WebServer.h> // web server utility for esp32
+#include <ESPmDNS.h> // map ip address to a name
+#include <time.h> // up to date time over NTP
+#include <ArduinoJson.h> // json formatting
 
+#define MAX_CONNECT_ATTEMPTS 20
 /**
  * Store last value for:
  * Temperature
@@ -82,7 +89,20 @@ enum class LEDColor {
 };
 
 /* ESP32 Settings -----------------------------------------------------------------*/
+/* Networking*/
+//String ROUTER_NAME = "HerbyIOT";
+//String ROUTER_PASSWORD = "herbinator";
+String ROUTER_NAME;
+String ROUTER_PASSWORD;
+String mdnsName = "herbnet.local";
 
+// NTP server
+const char* ntpServer = "pool.ntp.org"; // atomic clock ntp pooler
+const long  gmtOffset_sec = -28800;   // pst is 28800 secs behind gmt
+const int   daylightOffset_sec = 3600; // 3600 secs added for daylight savings
+
+// Web server port open 80 http
+WebServer server(80);
 
 /* Pins */
 const int PUMP_MOTOR = 7;
@@ -421,6 +441,73 @@ void transitionTo(const State next) {
  */
 void setup() {
   Serial.begin(BAUD_RATE);
+  while (!Serial){
+    ; // waits for esp to connect
+  }
+    ROUTER_NAME = getString("Enter router name.");
+  ROUTER_NAME.trim();
+  
+  ROUTER_PASSWORD = getString("Enter router password.");
+  ROUTER_PASSWORD.trim();
+
+  connect(ROUTER_NAME, ROUTER_PASSWORD);
+ 
+
+  // mDNS name -> herbnet.local
+  if (!MDNS.begin(mdnsName)) {
+    Serial.println("mDNS start FAILED");
+  } else {
+    Serial.print("mDNS started: http://");
+    Serial.print(mdnsName);
+    Serial.println(".local/");
+  }
+
+  // Time
+  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+
+  // http server
+  server.on("/", handleJson);
+
+  server.on("/time", handleTime);
+
+  server.on("/temperature", []() {
+    server.send(200, "text/plain", String(lastTempC));
+  });
+
+  server.on("/humidity", []() {
+    server.send(200, "text/plain", String(lastHumidity));
+  });
+
+  server.on("/moisture", []() {
+    server.send(200, "text/plain", String(lastMoisturePct));
+  });
+
+  server.on("/state", []() {
+    server.send(200, "text/plain", currentStateName);
+  });
+
+  server.on("/water", HTTP_POST, []() {
+    // later trigger watering logic here
+    server.send(200, "application/json",
+                "{\"status\":\"watering\"}");
+  });
+/*
+  server.on("/pause", HTTP_POST, []() {
+    state = "Paused";
+    server.send(200, "application/json",
+                "{\"status\":\"paused\"}");
+  });
+
+  server.on("/resume", HTTP_POST, []() {
+    state = "Running";
+    server.send(200, "application/json",
+                "{\"status\":\"running\"}");
+  });
+  */
+  server.begin();
+  Serial.println("Json Collection started!");
+
+
 
   // CSV header — matches printCSVRow() column order
   dhtSensor.setDelay(SENSOR_SAMPLE_MS);
@@ -628,6 +715,73 @@ void printCSVRow(const char* state, const int rawMoist, const float moistPct, co
   logFile.println(waterPresent ? 1 : 0);
 }
 
+
+// NETWORK FUNCTIONS ****************************************************
+// this function enables the boards to connect to a wifi router
+void connect(String name, String password){
+
+  WiFi.begin(name.c_str(), password.c_str());
+ 
+  for (int attempts = 0; attempts < MAX_CONNECT_ATTEMPTS && WiFi.status() != WL_CONNECTED; attempts++){   // delay for connection to the network
+    delay(500); // pauses
+    Serial.print(".");
+  }
+
+  if (WiFi.status() == WL_CONNECTED){
+    Serial.println("\nWiFi connected");
+    Serial.print("IP address: ");
+    Serial.println(WiFi.localIP());
+  } else Serial.println("Failed to connect. Please try again.");
+}
+
+// This is for the user entering creds
+String getString(String prompt){
+  Serial.readString(); // flushes whatever is in the input
+  Serial.println(prompt);
+
+  while(Serial.available() <= 0); // BLANK--buffer for user to enter input. Will be exited once input provided
+
+  return Serial.readStringUntil('\n');
+
+}
+
+// handle time requests to JsonDocument
+void handleTime() {
+  server.send(200, "text/plain", getTimeString());
+}
+
+// Formatted time for display
+String getTimeString() {
+  struct tm timeinfo;
+  if (!getLocalTime(&timeinfo)) {
+    return "Time not ready";
+  }
+  char buf[32];
+  strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", &timeinfo);
+  return String(buf);
+}
+
+/**
+ * Creates and sends JSON to client
+ */
+void handleJson() {
+  JsonDocument doc;
+
+  doc["temperature"] = int(lastTempC); //temperature;
+  doc["moisture"] = int(lastMoisturePct); //moisture;
+  doc["humidity"] = int(lastHumidity); //humidity;
+  doc["state"] = currentStateName; //state;
+  doc["time"] = getTimeString();
+  
+  String json;
+  serializeJson(doc, json);
+
+  server.send(200, "application/json", json);
+  // maybe add a delay here
+}
+
+
+
 static unsigned long last_flush = 0;
 
 /**
@@ -635,7 +789,7 @@ static unsigned long last_flush = 0;
  */
 void loop() {
   now = millis();
-
+  server.handleClient(); // continuous client handling
   if (logFile && millis() - last_flush > FLUSH_CYCLE_TIME) {
     logFile.flush();
     last_flush = millis();
