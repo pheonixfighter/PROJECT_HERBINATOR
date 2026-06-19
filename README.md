@@ -277,7 +277,7 @@ The FSM has the following states. The three status LEDs signal what the device i
 | `RedFlash` | Entry into calibration | Red (flashing) |
 | `PromptDry` | Waiting for dry calibration point | Green (flashing) |
 | `PromptWet` | Waiting for wet calibration point | Blue (flashing) |
-| `ButtonPressed` / `CalibrationButtonYield` | Hold-detection during calibration | — |
+| `ButtonPressed` / `CalibrationButtonYield` | Hold-detection during calibration | N/A |
 | `CalibrationDone` | Calibration saved | All (blinking) |
 | `MoistureSensorFail` | Moisture sensor out of range / unresponsive | Red (fast flash) + Blue |
 | `TempSensorFail` | DHT11 unresponsive | Red (fast flash) + Green |
